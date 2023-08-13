@@ -4,4 +4,4 @@ This is a simple prototype of KongMingQi (with the help of ChatGPT, for some dir
 ## Installation and Run
 > pip install pygame
 > 
-> ./kmq.py
+> python3 kmq.py
