@@ -1,4 +1,16 @@
 import pygame
+import copy
+
+
+original_board = [
+    [-1, -1, 1, 1, 1, -1, 4],
+    [-1, -1, 1, 1, 1, -1, -1],
+    [1, 1, 1, 1, 1, 1, 1],
+    [1, 1, 1, 0, 1, 1, 1],
+    [1, 1, 1, 1, 1, 1, 1],
+    [-1, -1, 1, 1, 1, -1, -1],
+    [-1, -1, 1, 1, 1, -1, -1]
+]
 
 class ChessGame:
     def __init__(self):
@@ -9,17 +21,9 @@ class ChessGame:
         self.screen = pygame.display.set_mode((350, 350))
         pygame.display.set_caption("KongMingQi")
 
-        self.board_info = [
-            [-1, -1, 1, 1, 1, -1, -1],
-            [-1, -1, 1, 1, 1, -1, -1],
-            [1, 1, 1, 1, 1, 1, 1],
-            [1, 1, 1, 0, 1, 1, 1],
-            [1, 1, 1, 1, 1, 1, 1],
-            [-1, -1, 1, 1, 1, -1, -1],
-            [-1, -1, 1, 1, 1, -1, -1]
-        ]
+        self.board_info = copy.deepcopy(original_board)
 
-        self.color = [(0, 0, 0), (0, 128, 0), (128, 0, 0), (255, 255, 255)]
+        self.color = [(0, 0, 0), (0, 128, 0), (128, 0, 0), (255, 255, 255), (0, 0, 128)]
 
     def display_board(self):
         # Clear the screen
@@ -37,6 +41,8 @@ class ChessGame:
                 elif self.board_info[row][col] == 2:
                     pygame.draw.circle(self.screen, self.color[3], (row*50+25, col*50+25), radius=20)
                     pygame.draw.circle(self.screen, self.color[2], (row*50+25, col*50+25), radius=15)
+                elif self.board_info[row][col] == 4:
+                    pygame.draw.circle(self.screen, self.color[4], (row*50+25, col*50+25), radius=20)
         pygame.display.flip()
 
     def show_popup(self, message):
@@ -92,6 +98,9 @@ class ChessGame:
                                 self.board_info[clicked_row][clicked_col] = 2
                                 selected[0] = clicked_row
                                 selected[1] = clicked_col
+                    elif self.board_info[clicked_row][clicked_col] == 4:
+                        self.board_info = copy.deepcopy(original_board)
+                        selected = [2, 2]
                     self.display_board()
 
 # Create and start the game
